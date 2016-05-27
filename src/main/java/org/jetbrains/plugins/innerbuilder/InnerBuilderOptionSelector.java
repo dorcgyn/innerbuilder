@@ -72,6 +72,14 @@ public final class InnerBuilderOptionSelector {
                         .withToolTip("Add Javadoc to generated builder class and methods")
                         .withOption(InnerBuilderOption.WITH_JAVADOC)
                         .build());
+        options.add(
+                SelectorOption.newBuilder()
+                        .withCaption("Add @JsonProperty annotation")
+                        .withMnemonic('c')
+                        .withToolTip("Add @JsonProperty annotation to generated setter methods in builder")
+                        .withOption(InnerBuilderOption.JSON_PROPERTY)
+                        .build());
+
         return options;
     }
 
