@@ -1,67 +1,85 @@
-innerbuilder [![Build Status](https://travis-ci.org/analytically/innerbuilder.svg?branch=master)](https://travis-ci.org/analytically/innerbuilder)
+innerbuilder
 ============
 
 [IntelliJ IDEA](http://www.jetbrains.com/idea/) plugin that adds a 'Builder' action to the Generate menu (Alt+Insert)
 which generates an inner builder class as described in Effective Java. Works with IntelliJ IDEA 12.x, 13.x and 14.x.
-Follow [@analytically](http://twitter.com/analytically) for updates.
+
+This project is a customization from https://github.com/analytically/innerbuilder.
 
 ![screenshot](screenshot.png)
 
 ```java
-public class YourTypicalBean {
-    private final String foo;
-    private String bar, baz;
-    private int qux;
+public class Test {
+    private final int i;
+    private final String a;
 
-    private YourTypicalBean(Builder builder) {
-        foo = builder.foo;
-        bar = builder.bar;
-        baz = builder.baz;
-        setQux(builder.qux);
+    private Test(final Builder builder) {
+        this.i = builder.i;
+        this.a = builder.a;
     }
 
-    public void setQux(int qux) {
-        this.qux = qux;
-    }
 
+    /**
+     * {@code Test} builder static inner class.
+     */
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static final class Builder {
-        private final String foo;
-        private String bar;
-        private String baz;
-        private int qux;
+        private int i;
+        private String a;
 
-        public Builder(String foo) {
-            this.foo = foo;
+        /**
+         * Default Constructor
+         */
+        public Builder() {
         }
 
-        public Builder bar(String val) {
-            bar = val;
+        /**
+         * Clone Constructor, for clone an existing {@code Test}.
+         *
+         * @param copy the copy to clone.
+         */
+        public Builder(final Test copy) {
+            this.i = copy.i;
+            this.a = copy.a;
+        }
+
+        /**
+         * Sets the {@code i} and returns a reference to this Builder so that the methods can be chained together.
+         *
+         * @param i the {@code i} to set
+         * @return a reference to this Builder
+         */
+        @JsonProperty
+        public Builder i(final int i) {
+            this.i = i;
             return this;
         }
 
-        public Builder baz(String val) {
-            baz = val;
+        /**
+         * Sets the {@code a} and returns a reference to this Builder so that the methods can be chained together.
+         *
+         * @param a the {@code a} to set
+         * @return a reference to this Builder
+         */
+        @JsonProperty
+        public Builder a(final String a) {
+            this.a = a;
             return this;
         }
 
-        public Builder qux(int val) {
-            qux = val;
-            return this;
-        }
-
-        public YourTypicalBean build() {
-            return new YourTypicalBean(this);
+        /**
+         * Returns a {@code Test} built from the parameters previously set.
+         *
+         * @return a {@code Test} built with parameters of this {@code Test.Builder}
+         */
+        public Test build() {
+            return new Test(this);
         }
     }
 }
 ```
 
 ### Installation
-
-In IntelliJ IDEA 12.x or later, go to `File` > `Settings` > `Plugins`. Click the `Browse repositories` button, in
-the search field, type `innerbuilder`. It should show up in the plugin list. Right-click it and select `Download and Install`.
-
-#### Manual installation
 
 Download the plugin jar `innerbuilder.jar` and select "Install Plugin From Disk" in IntelliJ's plugin preferences.
 
@@ -71,13 +89,15 @@ Use `Shift+Alt+B` or `Alt+Insert` and select `Builder...`. Choose the fields to 
 builder when a builder already exists, the plugin will try to update it. It will add missing fields and builder methods, but
 never remove any fields or methods.
 
-### Rate
-
-If you enjoy this plugin, please rate it on it's [plugins.jetbrains.com page](http://plugins.jetbrains.com/plugin/7354).
+### Customization
+1. Support final fields in setter method.
+2. Add `@JsonProperty` and `@JsonIgnoreProperties(ignoreUnknown = true)` for builder.
+3. Add javadoc for bulder constructors.
+4. Add `final` keyword in method parameters.
 
 ### Building
 
-Run `mvn package`. It will download IntelliJ IDEA Community Edition to unpack jars and use them to compile the plugin.
+Building has problems.... some urls are out of date.
 
 ### License
 
