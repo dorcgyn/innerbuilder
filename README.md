@@ -81,7 +81,8 @@ public class Test {
 
 ### Installation
 
-Download the plugin jar `innerbuilder.jar` and select "Install Plugin From Disk" in IntelliJ's plugin preferences.
+Download the plugin jar `innerbuilder.jar`.
+In IntelliJ IDEA 12.x or later, go to `File > Settings > Plugins`. Select "Install Plugin From Disk" in IntelliJ's plugin preferences.
 
 ### Usage
 
